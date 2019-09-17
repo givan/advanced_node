@@ -1,0 +1,26 @@
+{
+  "name": "advanced_node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/givan/advanced_node.git"
+  },
+  "author": "George Ivanov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/givan/advanced_node/issues"
+  },
+  "homepage": "https://github.com/givan/advanced_node#readme",
+  "dependencies": {
+    "request": "^2.88.0"
+  },
+  "optionalDependencies": {
+    "nodemon": "^1.19.2"
+  }
+}
