@@ -1,11 +1,11 @@
-require('./ascii-art');
-require('./ascii-art'); // only once is loaded - then is cached
-console.log(require.cache);
-delete require.cache['C:\\Users\\geivano\\Source\\Repos\\advanced_node\\module_fun.js'];
-require('./ascii-art');
+// require('./ascii-art');
+// require('./ascii-art'); // only once is loaded - then is cached
+// console.log(require.cache);
+// delete require.cache['C:\\Users\\geivano\\Source\\Repos\\advanced_node\\module_fun.js'];
+// require('./ascii-art');
 
-const v = require('./module_fun');
-console.log(v);
+// const v = require('./module_fun');
+// console.log(v);
 
 // npm
 // npm i -O nodemon - will save nodemon as an optional package
@@ -27,4 +27,7 @@ console.log(v);
 // require('./http-web-fun');
 // require('./built-in-modules');
 // require("./eventemitter-fun");
-require('./streams-fun');
+// require('./streams-fun');
+// require('./fork-server-computation');
+// require('./cluster-fork-fun');
+require('./promises-async-await-fun');
