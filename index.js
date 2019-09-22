@@ -30,4 +30,23 @@
 // require('./streams-fun');
 // require('./fork-server-computation');
 // require('./cluster-fork-fun');
-require('./promises-async-await-fun');
+// require('./promises-async-await-fun');
+require('./destructing-fun');
+
+// The following is one of the coding excercises i got with Walmart:
+// const Cube = require('cubejs');
+ 
+// // Create a new solved cube instance
+// const cube = new Cube();
+ 
+// // Apply an algorithm or randomize the cube state
+// cube.move("U F R2 B' D2 L'");
+// cube.randomize();
+ 
+// // Create a new random cube
+// console.log(cube.asString());
+
+// Cube.initSolver();
+
+// const res = cube.solve();
+// console.dir(res);
