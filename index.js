@@ -31,7 +31,10 @@
 // require('./fork-server-computation');
 // require('./cluster-fork-fun');
 // require('./promises-async-await-fun');
-require('./destructing-fun');
+// require('./destructing-fun');
+// require('./classes-fun');
+// require('./functional-fun');
+require('./built-in-objects');
 
 // The following is one of the coding excercises i got with Walmart:
 // const Cube = require('cubejs');

@@ -94,3 +94,45 @@ for (const { id, name } of artists) {
 let { x, y, ...z } = { x: 10, y: 20, c: 30, d: 40, e: 50 };
 console.log(`x=${x}; y=${y}`);
 console.log(z);
+
+// object and array destructing
+const ar2 = [
+  {
+    id: 1,
+    displayName: 'jdoe',
+    fullName: {
+      firstName: 'John',
+      lastName: 'Doe'
+    }
+  },
+  {
+    id: 2,
+    displayName: 'bvuna',
+    fullName: {
+      firstName: 'Baba',
+      lastName: 'Vuna'
+    }
+  },
+  {
+    id: 3,
+    displayName: 'slavi',
+    fullName: {
+      firstName: 'Slavi',
+      lastName: 'Doe'
+    }
+  }
+];
+const [,{displayName: secondDN, fullName: secondFN},] = ar2;
+console.log(secondFN);
+console.log(secondDN);
+
+// resting - function parameter numbers that is an array that will get any number of values passed into the doWork func
+const doWork = function(name, ...numbers) {
+  let sum = 0;
+  numbers.forEach((number) => sum += number);
+  return `The sum for ${name} is: ${sum}`;
+}
+
+// here we use array spreading (... before an array)
+const sum = doWork(...["JDoe", 1, 2, 3, 4, 5, 6]);
+console.log(`${sum}`); // The sum for JDoe is: 21
