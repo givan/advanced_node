@@ -1,4 +1,5 @@
 const fs = require('fs');
+const assert = require('assert');
 
 // const readFileAsArray = function(file, cb) {
 //   fs.readFile(file, (err, data) => {
@@ -60,3 +61,40 @@ async function countOdd() {
 }
 
 countOdd();
+
+function getOrder(orderId) {
+  return new Promise((resolve, reject) => {
+    setInterval(() => {
+      resolve({orderId, userId: 1});
+    }, 100);
+  })
+};
+
+function getUser(userId) {
+  return Promise.resolve({userId, companyId: 2});
+}
+
+function getCompany(companyId) {
+  return Promise.resolve({name: 'Pluralsight'});
+}
+
+getOrder(3).then(function (order) {
+  return getUser(order.userId); // this returns another promise - chaining them now
+}).then(function (user) {
+  return getCompany(user.companyId);
+}).then(function (company) {
+  assert.equal(company.name, 'Pluralsight');
+}).catch(function (err) {
+  console.error(`getOrder promise chain returned error: ${JSON.stringify(err)}`);
+});
+
+// call in parallel getOrder for multiple orders
+let ordersPromises = [];
+let orderIds = [1, 2, 3, 4];
+orderIds.forEach((item) => {
+  ordersPromises.push(getOrder(item));
+});
+
+Promise.all(ordersPromises).then((results) => {
+  assert.equal(results.length, ordersPromises.length);
+});

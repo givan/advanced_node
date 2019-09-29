@@ -212,9 +212,91 @@ function weakSetLimitedProperties() {
 
   assert.ok(myWeakSet.delete(key1));
   assert.ok(myWeakSet.delete(key2));
-  
+
   assert.ok(!myWeakSet.has(key1));
   assert.ok(!myWeakSet.has(key2));
 };
 
 weakSetLimitedProperties();
+
+// proxies
+let unicorn = {
+  legs: 4,
+  color: 'brown',
+  horn: true,
+  hornAttack: function(target) {
+    return target.name + ' was obliterated!';
+  }
+};
+
+let proxyUnicorn = new Proxy(unicorn, {
+  get: function(target, property) {
+    if (property === 'color') {
+      return 'awesome ' + target[property];
+    } else {
+      return target[property]; // default - pass down to the target obj
+    }
+  },
+  set: function(target, property, value) {
+    if (property === 'horn') {
+      console.log('Cant remove unicorns horn');
+    } else {
+      target[property] = value; // pass down to the real object
+    }
+  }
+});
+
+const originalFunc = unicorn.hornAttack;
+unicorn.hornAttack = new Proxy(originalFunc, {
+  apply: function(target, context, args) {
+      if (context !== unicorn) {
+        return 'nobody can use the horn but the unicorn itself'; // to prevent highjacking .. 
+      } else {
+        return target.apply(context, args);
+      }
+  }
+});
+
+let thief = {name: 'Rupert'};
+thief.attack = unicorn.hornAttack;
+const thiefAttackRes = thief.attack();
+console.log(`Thief attack result with proxy protection: ${thiefAttackRes}`);
+const unicornAttackRes = unicorn.hornAttack(thief);
+console.log(`Unicorn attack result: ${unicornAttackRes}`);
+
+assert.equal(unicorn.color, 'brown');
+assert.equal(proxyUnicorn.color, 'awesome brown');
+
+proxyUnicorn.color = 'white';
+proxyUnicorn.horn = false;
+assert.equal(proxyUnicorn.horn, true);
+assert.equal(proxyUnicorn.color, 'awesome white');
+
+assert(!Object.is(1, 2));
+
+assert(!Object.is(-0, 0));
+assert(-0 === 0);
+
+assert(!(NaN === NaN));
+assert(Object.is(NaN, NaN));
+
+// Object.assign() is mixins with objects
+
+var shark = {
+  bite: function(target) {
+    target.hurt = true;
+  }
+}
+
+var person = {};
+
+var laser = {
+  pewpew: function(target) {
+    target.exploded = true;
+  }
+}
+
+Object.assign(shark, laser); // shark gets laser mixins
+shark.pewpew(person);
+assert.ok(person.hasOwnProperty('exploded'));
+assert.ok(Object.is(person.exploded, true));
