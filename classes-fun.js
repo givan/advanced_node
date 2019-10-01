@@ -1,3 +1,5 @@
+const assert = require('assert');
+
 class Person {
   constructor(name) {
     this.name = name; // may throw an error
@@ -27,6 +29,25 @@ class Employee extends Person {
     return `${super.doWork()} is working`;
   }
 }
+
+const val1Symb = Symbol.for('HidingPropertyNames.val1'); // we're not exporting this symbol so nobody can get access to it
+class HidingPropertyNames {
+  constructor(val1) {
+    this[val1Symb] = val1;
+  }
+
+  get val1Prop() {
+    return this[val1Symb];
+  }
+  set val1Prop(val) {
+    this[val1Symb] = val;
+  }
+}
+
+const val1 = 111;
+let hidePropName = new HidingPropertyNames(val1);
+assert.ok(!hidePropName.hasOwnProperty('val1'));
+assert.equal(hidePropName.val1Prop, val1);
 
 const john = new Employee("John Doe");
 console.log(john.doWork());

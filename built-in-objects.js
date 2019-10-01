@@ -300,3 +300,12 @@ Object.assign(shark, laser); // shark gets laser mixins
 shark.pewpew(person);
 assert.ok(person.hasOwnProperty('exploded'));
 assert.ok(Object.is(person.exploded, true));
+
+// get the unique elements in an array
+const arrWithDuplicates = [1, 1, 2, 2, 3, 3, 4];
+let arFrom = Array.from(new Set(arrWithDuplicates));
+console.log(arFrom);
+
+// use Array.from with generators
+let arDoubles = Array.from([1, 2, 4], (x) => x ^ 2);
+console.log(arDoubles);
