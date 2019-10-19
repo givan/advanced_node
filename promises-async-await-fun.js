@@ -98,3 +98,35 @@ orderIds.forEach((item) => {
 Promise.all(ordersPromises).then((results) => {
   assert.equal(results.length, ordersPromises.length);
 });
+
+// https://github.com/givan/advanced_node.git
+
+const waitFor = (ms) => new Promise((resolve) =>  {
+  setTimeout(resolve, ms)
+});
+
+[1, 2, 3].forEach(async (num) => {
+  await waitFor(50);
+  console.log(num);
+});
+console.log('Done');
+
+const ar = [1, 2, 3];
+
+// https://codeburst.io/javascript-async-await-with-foreach-b6ba62bbf404
+async function forEachAsync(array, callback) {
+  for (let idx = 0; idx < array.length; idx++) {
+    console.log(`before forEachAsync[${array[idx]}]`);
+    await callback(array[idx], idx, array);
+    console.log(`after forEachAsync[${array[idx]}]`);
+  }
+}
+
+forEachAsync(ar, async (num) => {
+  console.log(`before two awaits: ${num}`);
+  await waitFor(5000);
+  console.log(`between two awaits: ${num}`);
+  await waitFor(100);
+  console.log(`after two awaits: ${num}`);
+});
+console.log('Done with Async');
