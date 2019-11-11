@@ -30,7 +30,8 @@
 // require('./streams-fun');
 // require('./fork-server-computation');
 // require('./cluster-fork-fun');
-require('./promises-async-await-fun');
+// require('./promises-async-await-fun');
+require('./async_iterator');
 // require('./promises-async-generators-fun');
 // require('./destructing-fun');
 // require('./classes-fun');
